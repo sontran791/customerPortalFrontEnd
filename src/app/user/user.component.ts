@@ -10,6 +10,7 @@ import {CustomHttpResponse} from '../model/custom-http-response';
 import {AuthenticationService} from '../service/authentication.service';
 import {Router} from '@angular/router';
 import {FileUploadStatus} from '../model/file-upload-status';
+import {Role} from '../enum/role.enum';
 
 @Component({
   selector: 'app-user',
@@ -241,6 +242,22 @@ export class UserComponent implements OnInit, OnDestroy {
         // tslint:disable-next-line:no-unused-expression
         `Finish all processes`;
     }
+  }
+
+  public get isAdmin(): boolean {
+    return this.getUserRole() === Role.ADMIN || this.getUserRole() === Role.SUPER_ADMIN;
+  }
+
+  public get isManager(): boolean {
+    return this.isAdmin  || this.getUserRole() === Role.MANAGER;
+  }
+
+  public get isAdminOrManager(): boolean {
+    return this.isAdmin  || this.isManager;
+  }
+
+  private getUserRole(): string {
+    return this.authenticationService.getUserFromLocalCache().role;
   }
 
   private sendNotification(notificationType: NotificationType, message: string): void {
