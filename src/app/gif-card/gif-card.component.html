@@ -1,0 +1,41 @@
+<mat-card class="gif-card">
+  <mat-card-header>
+    <div mat-card-avatar class="gif-header-image"
+         [style.background-image]="styleSanitizer(mGif.fixedHeightSmallStill.url)"></div>
+    <mat-card-title>{{titleFormatted}}</mat-card-title>
+    <mat-card-subtitle>{{mGif.importDatetime}}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image class="gif-image" [src]="mGif.fixedHeight.url" [alt]="mGif.title">
+  <mat-card-content>
+    <p>Uploaded: {{mGif.importDatetime}}</p>
+    <p>Trending: {{mGif.trendingDatetime}}</p>
+    <p>Fixed Height Dimensions: {{mGif.fixedHeight.width}}x{{mGif.fixedHeight.height}}</p>
+    <p>Original Dimensions: {{mGif.original.width}}x{{mGif.original.height}}</p>
+  </mat-card-content>
+  <mat-card-content *ngIf="mGif.gifId; else cardAction">
+    <div class="card-form">
+      <mat-form-field>
+        <mat-label>Tag</mat-label>
+        <input #tagValue matInput placeholder="Tag"
+               (keyup.enter)="tag(tagValue.value)" />
+      </mat-form-field>
+
+      <button mat-flat-button color="primary"
+              (click)="tag(tagValue.value)">
+        Tag
+      </button>
+      <mat-chip-list *ngIf="mGif.tags.length > 0">
+        <mat-chip *ngFor="let tag of mGif.tags">{{tag.name}}</mat-chip>
+      </mat-chip-list>
+    </div>
+  </mat-card-content>
+  <ng-template #cardAction>
+    <mat-card-actions>
+      <button mat-button
+              (click)="save()"
+              [disabled]="isFavorite">
+        {{favoriteButtonText}}
+      </button>
+    </mat-card-actions>
+  </ng-template>
+</mat-card>
