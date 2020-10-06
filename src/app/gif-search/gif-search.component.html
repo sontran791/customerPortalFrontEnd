@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row mb-2 mt-2 text-center">
+    <div class="col-md-12">
+      <form class="">
+        <mat-form-field class="gif-search">
+          <mat-label>Search</mat-label>
+          <input matInput placeholder="Search"
+                 [value]=DEFAULT_SEARCH
+                 (keyup)="onKey($event)">
+        </mat-form-field>
+      </form>
+      <div class="gif-container">
+        <app-gif-card
+          *ngFor="let gif of gifs" [gif]="gif" [style.flex-grow]=gif.fixedHeight.width>
+        </app-gif-card>
+      </div>
+      <mat-paginator [length]="searchResponse.totalCount"
+                     [pageSize]="gifService.pageSize"
+                     [pageSizeOptions]="[5, 10, 25, 50]"
+                     (page)="onPageEvent($event)"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</div>
