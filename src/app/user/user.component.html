@@ -14,7 +14,7 @@
   <nav class="navbar navbar-expand-md breadcrumb">
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <div class="nav nav-pills">
-        <a class="nav-item nav-link active ml-1" (click)="changeTitle('Users')" data-toggle="tab" href="#users">
+        <a [hidden]="!isAdminOrManager" class="nav-item nav-link active ml-1" (click)="changeTitle('Users')" data-toggle="tab" href="#users">
           <i class="fa fa-users"></i>
           Users
         </a>
@@ -39,9 +39,9 @@
   </nav>
 
   <!-- main content -->
-  <div [hidden]="!isAdminOrManager" class="tab-content mt-3" id="myTabContent">
+  <div class="tab-content mt-3" id="myTabContent">
     <!-- user table -->
-    <div class="tab-pane fade show active" id="users">
+    <div [hidden]="!isAdminOrManager" class="tab-pane fade show active" id="users">
       <div class="mb-3 float-right">
         <div class="btn-group mr-2">
           <form class="form-inline my-2 my-lg-0 justify-content-center">

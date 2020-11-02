@@ -44,7 +44,9 @@ export class UserComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.user = this.authenticationService.getUserFromLocalCache();
-    this.getUsers(true);
+    if (this.isAdminOrManager) {
+      this.getUsers(true);
+    }
   }
 
   public changeTitle(title: string): void {
